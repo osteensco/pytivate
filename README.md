@@ -5,7 +5,8 @@
 </p>
 <h3>Install</h3>
 <p>
-Run the following command to install: 
+Uses `fzf` as a dependency. Install with your favorit package manager. <br>
+Run the following command to install pytivate: 
 
 ```bash
 curl https://raw.githubusercontent.com/osteensco/pytivate/main/src/pytivate.sh -o ~/.local/bin/pytivate && chmod +x ~/.local/bin/pytivate
