@@ -21,4 +21,5 @@ RUN python -m venv venv
 
 # default command
 CMD ["bash", "-l", "-c", "source /root/.local/bin/pytivate && echo 'success!'"]
-
+#TODO
+# pip install stuff, deactivate, reactivate and run a python script that imports a thing to prove the venv is setup
