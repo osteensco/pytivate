@@ -2,7 +2,7 @@
 
 
 
-VENV_NAMES=("venv")
+VENV_NAMES=("venv" ".venv" "env" ".env")
 
 active_venv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
