@@ -1,7 +1,7 @@
 <h2>Easier python virtual environment activation</h2>
 
 <p>
-  I honestly just hated typing out the path to the activation script. Also, what if I needed to move between different virtual environments in the same monorepo? This simple tool tries to give you less to type and make things easier.
+  I honestly just hated typing out the path to the activation script. Also, what if I needed to move between different virtual environments in the same monorepo? This simple tool tries to give you less to type and make things easier without being too much. Great if you never moved on from venv.
 </p>
 <h3>Install</h3>
 <p>
