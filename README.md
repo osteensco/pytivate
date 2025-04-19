@@ -6,7 +6,7 @@
 <h3>Install</h3>
 <p>
   
-Uses `fzf` as a dependency. Install with your favorit package manager. 
+Uses `fzf` as a dependency. Install with your favorite package manager. 
 
 <br>
 
