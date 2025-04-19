@@ -5,7 +5,11 @@
 </p>
 <h3>Install</h3>
 <p>
-Uses `fzf` as a dependency. Install with your favorit package manager. <br>
+  
+Uses `fzf` as a dependency. Install with your favorit package manager. 
+
+<br>
+
 Run the following command to install pytivate: 
 
 ```bash
