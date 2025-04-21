@@ -6,7 +6,7 @@
 <h3>Install</h3>
 <p>
   
-Uses `fzf` as a dependency. Install with your favorite package manager. 
+Unix-like os and bash or zsh shells, maybe others. Uses `fzf` as a dependency.
 
 <br>
 
