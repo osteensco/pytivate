@@ -17,26 +17,34 @@ curl https://raw.githubusercontent.com/osteensco/pytivate/main/src/pytivate.sh -
 ```
 </p>
 
+<h3>Use</h3>
+
 <p>
-Activate a virtual environment in your project by running
+
+Activate a virtual environment in your project by sourcing pytivate. This will bring up fzf with a list of available virtual environments pytivate found.
 
 ```bash 
-. pytivate
-```
-or 
-```bash
 source pytivate
+```
+pytivate prompts for confirmation by default but a '-y' flag can be passed in to skip this 
+```bash
+. pytivate -y
 ```
 
 Alternatively, you can add a simple function to your .bashrc or .zshrc:
 
 ```bash
 pytivate() {
-  . ~/.local/bin/pytivate
+  . ~/.local/bin/pytivate -y
 }
 ```
 And in your project just run
 ```
 pytivate
 ```
+<br>
+
+Pytivate just looks for subdirectories with certain names. This list can be adjusted in your .bashrc or .zshrc using the `VENV_NAMES` variable. The will supercede 
+the defaults which are `DEFAULT_NAMES=("venv" ".venv" "env" ".env")`.
+
 </p>

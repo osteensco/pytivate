@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 
+DEFAULT_NAMES=("venv" ".venv" "env" ".env")
 
-VENV_NAMES=("venv" ".venv" "env" ".env")
+if [ -n "${VENV_NAME:-}" ]; then
+    VENV_NAMES=("$VENV_NAME")
+else
+    VENV_NAMES=("${DEFAULT_NAMES[@]}")
+fi
 
 active_venv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
