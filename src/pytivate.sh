@@ -17,8 +17,6 @@ active_venv() {
     fi
 }
 
-# workdir="$PWD"
-workdir="/mnt/c/Users/ostee/Desktop/Repos/opensauce/pytivate"
 
 # base command
 cmd="find $PWD -type d "
@@ -39,6 +37,61 @@ cmd+="| fzf"
 
 # echo "$cmd"
 selection=$(bash -c "$cmd")
+
+# start path validation
+echo "Validating paths are correct in the virtual environment"
+
+if [[ ! -f "$selection/pyvenv.cfg" ]]; then
+    echo "Error: $selection/pyvenv.cfg was not found!"
+    return 1
+fi
+
+if [[ "$(grep '^command =' "$selection/pyvenv.cfg" | rev | cut -d ' ' -f1 | rev)" != "$selection" ]]; then
+    echo "  Updating command path in pyvenv.cfg..."
+    pyloc=$(command -v python || command -v python3)
+    sed -i "s|^command = .*|command = $pyloc -m venv $selection|" "$selection/pyvenv.cfg"
+fi
+
+for file in "$selection"/bin/activate*; do
+    [[ -f "$file" ]] || continue
+
+    case "$(basename "$file")" in
+        
+        activate)
+            if [[ "$(grep '^VIRTUAL_ENV=' "$file" | cut -d= -f2- | tr -d '"')" != "$selection" ]]; then
+                echo "  Updating activation script $file"
+                sed -i "s|^ *export VIRTUAL_ENV=.*|export VIRTUAL_ENV=$selection|" "$file"
+            fi
+            ;;
+
+        activate.csh)
+            if [[ "$(grep '^ *setenv VIRTUAL_ENV ' "$file" | awk '{print $3}')" != "$selection" ]]; then
+                echo "  Updating activation script $file"
+                sed -i "s|^ *setenv VIRTUAL_ENV .*|setenv VIRTUAL_ENV $selection|" "$file"
+            fi
+            ;;
+
+        activate.fish)
+            if [[ "$(grep '^ *set -gx VIRTUAL_ENV ' "$file" | awk '{print $4}')" != "$selection" ]]; then
+                echo "  Updating activation script $file"
+                sed -i "s|^ *set -gx VIRTUAL_ENV .*|set -gx VIRTUAL_ENV $selection|" "$file"
+            fi
+            ;;
+    esac
+
+done
+
+for file in "$selection"/bin/pip*; do
+    [[ -f "$file" && ! -d "$file" ]] || continue
+    read -r first_line < "$file"
+    if [[ "$first_line" == "#!"*python* && "$first_line" != "#!$selection/bin/python" ]]; then
+        echo "  Updating shebang in $file"
+        sed -i "1s|^#!.*python.*$|#!$selection/bin/python|" "$file"
+    fi 
+done
+# end path validation
+
+
 
 echo "Attempting to activate $selection"
 
