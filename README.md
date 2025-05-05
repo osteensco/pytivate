@@ -1,7 +1,7 @@
 <h2>Easier python virtual environment activation</h2>
 
 <p>
-  I honestly just hated typing out the path to the activation script. Also, what if I needed to move between different virtual environments in the same monorepo? This simple tool tries to give you less to type and make things easier without being too much. Great if you never moved on from venv.
+  I honestly just hated typing out the path to the activation script. Also, what if I needed to move between different virtual environments in the same monorepo? Also also, if I move my virtual environment to another folder it breaks which is annoying. It would be nice if the virtual environment scripts just fixed themselves. This simple tool tries to give you less to type and make things easier without trying to do too much. If you're using a more modern python virtual environment manager, this isn't for you, but if you never moved on from venv this tool is great.
 </p>
 <h3>Install</h3>
 <p>
@@ -21,7 +21,7 @@ curl https://raw.githubusercontent.com/osteensco/pytivate/main/src/pytivate.sh -
 
 <p>
 
-Activate a virtual environment in your project by sourcing pytivate. This will bring up fzf with a list of available virtual environments pytivate found.
+Activate a virtual environment in your project by sourcing pytivate. This will bring up fzf with a list of available virtual environments pytivate found. If you move your virtual environment to another folder, you will notice pytivate fixing broken paths for you next time you use it.
 
 ```bash 
 source pytivate
