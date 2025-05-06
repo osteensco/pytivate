@@ -38,6 +38,8 @@ cmd+="| fzf"
 # echo "$cmd"
 selection=$(bash -c "$cmd")
 
+
+
 # start path validation
 echo "Validating paths are correct in the virtual environment"
 
@@ -58,7 +60,7 @@ for file in "$selection"/bin/activate*; do
     case "$(basename "$file")" in
         
         activate)
-            if [[ "$(grep '^VIRTUAL_ENV=' "$file" | cut -d= -f2- | tr -d '"')" != "$selection" ]]; then
+            if [[ "$(grep '^export VIRTUAL_ENV=' "$file" | cut -d= -f2-)" != "$selection" ]]; then
                 echo "  Updating activation script $file"
                 sed -i "s|^ *export VIRTUAL_ENV=.*|export VIRTUAL_ENV=$selection|" "$file"
             fi
