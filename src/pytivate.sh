@@ -18,14 +18,18 @@ active_venv() {
 }
 
 
-# base command
-cmd="find $PWD -type d "
-
+# prune command
+basecmd="find $PWD \( -type d \( -name 'node_modules' -o -name '.git' "
+findcmd="-type d "
 
 # iterate through possible names and add them to the command
 for dir in "${VENV_NAMES[@]}"; do
-    cmd+="-name $dir -o "
+    basecmd+="-o -name $dir "
+    findcmd+="-name $dir -o "
 done
+
+# combine into one command
+cmd="$basecmd\) -prune \) $findcmd"
 
 # remove the last or operator from the command
 len=$(printf "%s" "$cmd" | wc -c)
@@ -83,7 +87,7 @@ for file in "$selection"/bin/activate*; do
 
 done
 
-for file in "$selection"/bin/pip*; do
+for file in "$selection"/bin/*; do
     [[ -f "$file" && ! -d "$file" ]] || continue
     read -r first_line < "$file"
     if [[ "$first_line" == "#!"*python* && "$first_line" != "#!$selection/bin/python" ]]; then
@@ -103,12 +107,9 @@ if [ ! -f "$selection/bin/activate" ]; then
     return 1
 fi
 
-# handle already active virtual environments
+# inform user of already active virtual environments
 if [[ "$(active_venv)" != "false" ]]; then
     echo "$(active_venv) is already active."
-    if [[ "$(active_venv)" = "$selection" ]]; then
-        return 0
-    fi
 fi
 
 
